@@ -25,7 +25,7 @@ class App extends Component{
  render(){
   return (
     <div>
-      <ListContacts/>
+      <ListContacts contacts={contacts} />
     </div>
     )
   }
