@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 /*
 	Controlled components refer to components that render a form, but the "source of truth" for that form state lives inside of the component state rather than inside of the DOM.
 	The benefits of Controlled Components are:
@@ -25,7 +26,18 @@ class ListContacts extends Component{
     updateQuery = (query) => {
     	this.setState({query: query.trim()})
     }
+
     render(){
+    	let showingContacts
+    	if(this.state.query){
+    		const match = new RegExp(escapeRegExp(this.state.query), 'i')
+    		showingContacts = this.props.contacts.filter((contact)=> match.test(contact.name))
+    	} else {
+    		showingContacts = this.props.contacts
+    	}
+
+    	showingContacts.sort(sortBy('name'))
+
        return (
        	<div className='list-contacts'>
        	 {JSON.stringify(this.state)}
@@ -39,7 +51,7 @@ class ListContacts extends Component{
        	 	/>
        	 </div>
 		 <ol className='contact-list'>
-			{this.props.contacts.map(
+			{showingContacts.map(
 				(contact) => (
 						<li key={contact.id} className='contact-list-item'>
 							<div className='contact-avatar' style={{
