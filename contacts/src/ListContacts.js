@@ -14,6 +14,9 @@ import sortBy from 'sort-by'
 	And as we've learned: any changes to React state will cause a re-render on the page, effectively displaying our live search results.
 
 */
+
+// React Router's <Link> component is a great way to make navigation through your app accessible for users.
+
 class ListContacts extends Component{
 	static propTypes = {
 		contacts: PropTypes.array.isRequired,
@@ -58,8 +61,7 @@ class ListContacts extends Component{
    	 		  onChange={(event)=> this.updateQuery(event.target.value)}
        	 	/>
        	 	<Link
-       	 	  to ='#create' className='add-contact'
-       	 	  onClick= {this.props.onNavigate}>
+       	 	  to ='#create' className='add-contact'>
        	 	  Add Contact</Link>
        	 </div>
 
